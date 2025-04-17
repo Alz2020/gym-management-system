@@ -61,6 +61,13 @@
                 <label for="password_confirmation" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
             </div>
+            
+            <!-- Update Profile Button (Visible only for logged-in users) -->
+            @auth
+            <div class="d-grid mt-3">
+                <a href="{{ route('profile.edit') }}" class="btn btn-warning">Update Profile</a>
+            </div>
+            @endauth
 
             <!-- Register Button -->
             <div class="d-grid">

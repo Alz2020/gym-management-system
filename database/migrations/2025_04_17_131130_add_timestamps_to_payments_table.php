@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('users'); // Default role is 'member'
-
+        Schema::table('payments', function (Blueprint $table) {
             //
+            $table->timestamps();
         });
     }
 
@@ -23,11 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-
-            //      
-            $table->dropColumn('role');
-
+        Schema::table('payments', function (Blueprint $table) {
+            //
+            $table->dropTimestamps();
         });
     }
 };
