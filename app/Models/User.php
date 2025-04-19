@@ -50,7 +50,10 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
-    
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
+    }
 
 
 }

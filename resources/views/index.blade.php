@@ -30,16 +30,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($appointments as $appointment)
+                    @forelse($appointments as $appointment)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $appointment->client->name }}</td>
-                            <td>{{ $appointment->trainer->name }}</td>
+                            <td>{{ optional($appointment->client)->name ?? 'Not Assigned' }}</td>
+                            <td>{{ optional($appointment->trainer)->name ?? 'Not Assigned' }}</td>
                             <td>{{ $appointment->date }}</td>
                             <td>{{ $appointment->time }}</td>
                             <td>
                                 <span class="badge bg-{{ $appointment->status == 'Confirmed' ? 'success' : 'warning' }}">
-                                    {{ $appointment->status }}
+                                    {{ $appointment->status ?? 'Pending' }}
                                 </span>
                             </td>
                             <td>
@@ -51,7 +51,11 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No appointments found.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
