@@ -10,6 +10,7 @@ use App\Http\Controllers\{
     ProgressController,
     ContactController,
     ConsultingController,
+    AdminController,
     AdminDashboardController
 };
 
@@ -38,7 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 });
 // Admin-only routes
-Route::middleware(['auth', 'is_admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+    Route::get('/appointments', [AdminController::class, 'appointments'])->name('appointments.index');
+    Route::get('/payments', [AdminController::class, 'payments'])->name('payments.index');
+    Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 });
-Route::resource('appointments', AppointmentController::class);

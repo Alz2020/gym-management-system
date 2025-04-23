@@ -1,8 +1,8 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Admin Settings</h1>
-        <p>Manage system settings here.</p>
-    </div>
+<div class="container mt-5">
+    <h2>Settings</h2>
+    <p>This section is under development. Here you will be able to manage system preferences, admin profiles, etc.</p>
+</div>
 @endsection

@@ -1,30 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Welcome, {{ auth()->user()->name }} (Administrator)!</h1>
-    <p>This is your Admin Dashboard.</p>
+<div class="container mt-5">
+    <h2 class="mb-4">Admin Dashboard</h2>
 
-    <div class="row">
-        <!-- Manage Users -->
+    <div class="row text-center">
         <div class="col-md-4">
-            <a href="{{ route('admin.users.index') }}" class="btn btn-primary btn-block">
-                👤 Manage Users
-            </a>
+            <div class="card p-4 shadow-sm">
+                <h5>Total Users</h5>
+                <h2>{{ $userCount }}</h2>
+            </div>
         </div>
-
-        <!-- View Reports -->
         <div class="col-md-4">
-            <a href="{{ route('admin.reports.index') }}" class="btn btn-success btn-block">
-                📊 View Reports
-            </a>
+            <div class="card p-4 shadow-sm">
+                <h5>Total Appointments</h5>
+                <h2>{{ $appointmentCount }}</h2>
+            </div>
         </div>
-
-        <!-- Manage Gym Settings -->
         <div class="col-md-4">
-            <a href="{{ route('admin.settings.index') }}" class="btn btn-warning btn-block">
-                ⚙️ Gym Settings
-            </a>
+            <div class="card p-4 shadow-sm">
+                <h5>Total Payments</h5>
+                <h2>${{ number_format($paymentTotal, 2) }}</h2>
+            </div>
         </div>
     </div>
 </div>
