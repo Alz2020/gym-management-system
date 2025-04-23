@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('trainer_id')->constrained('trainers')->onDelete('cascade');
             $table->dateTime('appointment_date');
             $table->enum('status', ['scheduled', 'completed', 'canceled'])->default('scheduled');
+            $table->string('client_name'); // Add client_name
+            $table->string('phone_number'); // Add phone_number
             $table->timestamps();
         });
     }

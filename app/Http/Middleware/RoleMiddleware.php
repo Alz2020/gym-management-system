@@ -18,9 +18,11 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next,$role): Response
     {
         if(Auth::check() && Auth::user()->role !==$role){
-            return $next($request);
+            return redirect('/dashboard')->with('error','Access Denied.');
+
 
         }
-        return redirect('/dashboard')->with('error','Access Denied.');
+        return $next($request);
     }
+    
 }

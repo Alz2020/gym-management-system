@@ -29,6 +29,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+                    @auth
+                        @if(auth()->user()->hasRole('admin'))
+                            <li><a href="{{ route('admin.dashboard') }}">Admin</a></li>
+                        @endif
+                    @endauth    
                     @guest
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
@@ -63,5 +68,23 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-1">&copy; {{ date('Y') }} Tamfit Gym. All rights reserved.</p>
+        <div>
+            <a href="{{ route('home') }}" class="text-white me-3">Home</a>
+            <a href="{{ route('contact.index') }}" class="text-white me-3">Contact Us</a>
+            <a href="{{ route('appointments.index') }}" class="text-white me-3">Book Appointment</a>
+            <a href="{{ route('progress.index') }}" class="text-white">Track Progress</a>
+        </div>
+        <div class="mt-3">
+            <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+ 
 </body>
 </html>

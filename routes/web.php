@@ -1,45 +1,48 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MembershipController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\TrainerController;
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\{
+    HomeController,
+    AuthController,
+    UserController,
+    AppointmentController,
+    PaymentController,
+    ProgressController,
+    ContactController,
+    ConsultingController,
+    AdminController,
+    AdminDashboardController
+};
 
-
+// Home Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Authentication routes
+// Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Protected routes (only for authenticated users)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Role-based dashboards
-    Route::get('/admin-dashboard', [DashboardController::class, 'admin'])
-        ->middleware('role:admin') // Middleware applied correctly
-        ->name('admin.dashboard');
-
-    Route::get('/trainer-dashboard', [DashboardController::class, 'trainer'])
-        ->middleware('role:trainer')
-        ->name('trainer.dashboard');
-
-    Route::get('/member-dashboard', [DashboardController::class, 'member'])
-        ->middleware('role:member')
-        ->name('member.dashboard');
-
-    // Resource routes
-    Route::resources([
-        'memberships'  => MembershipController::class,
-        'payments'     => PaymentController::class,
-        'trainers'     => TrainerController::class,
-        'appointments' => AppointmentController::class,
-    ]);
+// Authenticated User Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::get('/appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+    Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
+    Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
+    Route::get('/progress', [ProgressController::class, 'index'])->name('progress.index');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact/submit', [ContactController::class, 'store'])->name('contact.submit');
+    Route::get('/consulting', [ConsultingController::class, 'index'])->name('consulting.index');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+});
+// Admin-only routes
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+    Route::get('/appointments', [AdminController::class, 'appointments'])->name('appointments.index');
+    Route::get('/payments', [AdminController::class, 'payments'])->name('payments.index');
+    Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 });
