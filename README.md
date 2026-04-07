@@ -12,14 +12,14 @@ Storing member information
 Managing memberships and subscriptions
 Tracking attendance and payments
 Organizing gym operations efficiently
-🚀 Features
-👤 Member registration and management
-📝 Add, update, and delete records
-🔍 Search functionality
-💾 Data storage and retrieval
-📊 Organized data handling for easy access
-🖥️ Simple and user-friendly interface
-🛠️ Technologies Used
+Features
+ Member registration and management
+ Add, update, and delete records
+ Search functionality
+ Data storage and retrieval
+ Organized data handling for easy access
+ Simple and user-friendly interface
+ Technologies Used
 
 Depending on your implementation (update if needed):
 
